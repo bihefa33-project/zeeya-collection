@@ -160,61 +160,104 @@ async function forceDownload(url, filename, btnElement) {
   }
 }
 
-// Modal Lightbox & Zooming
-function openLightbox(url, type, filename) {
+let scale = 1;
+let lastScale = 1;
+let pointX = 0;
+let pointY = 0;
+let startX = 0;
+let startY = 0;
+let isPanning = false;
+let initialDistance = 0;
+
+function openLightbox(src, isVideo) {
   const lightbox = document.getElementById('lightbox');
   const wrapper = document.getElementById('lightbox-media-wrapper');
   const downloadBtn = document.getElementById('download-btn');
-
-  wrapper.innerHTML = '';
-  currentZoom = 1;
-
-  // Set tombol download di lightbox menggunakan fungsi forceDownload
-  downloadBtn.onclick = (e) => {
-    e.preventDefault();
-    forceDownload(url, filename, downloadBtn);
-  };
-
-  let media;
-  if (type === 'image') {
-    media = document.createElement('img');
-    media.src = url;
-  } else {
-    media = document.createElement('video');
-    media.src = url;
-    media.controls = true;
-    media.autoplay = true;
-  }
   
-  media.id = 'active-media';
-  wrapper.appendChild(media);
+  wrapper.innerHTML = '';
+  // Reset posisi & zoom
+  scale = 1;
+  lastScale = 1;
+  pointX = 0;
+  pointY = 0;
+
+  if (isVideo) {
+    wrapper.innerHTML = `<video id="active-media" src="${src}" controls autoplay></video>`;
+  } else {
+    wrapper.innerHTML = `<img id="active-media" src="${src}">`;
+  }
+
+  downloadBtn.href = src;
   lightbox.style.display = 'flex';
+
+  // Inisialisasi event gesture sentuhan jari
+  const mediaEl = document.getElementById('active-media');
+  setupTouchEvents(mediaEl);
 }
 
 function closeLightbox() {
-  const lightbox = document.getElementById('lightbox');
-  const wrapper = document.getElementById('lightbox-media-wrapper');
-  lightbox.style.display = 'none';
-  wrapper.innerHTML = '';
+  document.getElementById('lightbox').style.display = 'none';
+  document.getElementById('lightbox-media-wrapper').innerHTML = '';
 }
 
-function setupZoomControls() {
-  document.getElementById('zoom-in-btn').onclick = () => applyZoom(0.2);
-  document.getElementById('zoom-out-btn').onclick = () => applyZoom(-0.2);
-  document.getElementById('reset-zoom-btn').onclick = () => {
-    currentZoom = 1;
-    updateZoomTransform();
-  };
-}
+function setupTouchEvents(el) {
+  if (!el) return;
 
-function applyZoom(delta) {
-  currentZoom = Math.max(0.5, Math.min(4, currentZoom + delta));
-  updateZoomTransform();
-}
-
-function updateZoomTransform() {
-  const activeMedia = document.getElementById('active-media');
-  if (activeMedia) {
-    activeMedia.style.transform = `scale(${currentZoom})`;
+  function updateTransform() {
+    el.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
   }
+
+  // Jarak antara 2 jari untuk Pinch Zoom
+  function getDistance(touches) {
+    return Math.hypot(
+      touches[0].clientX - touches[1].clientX,
+      touches[0].clientY - touches[1].clientY
+    );
+  }
+
+  el.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) {
+      // 1 Jari -> Menggeser gambar (Pan)
+      isPanning = true;
+      startX = e.touches[0].clientX - pointX;
+      startY = e.touches[0].clientY - pointY;
+    } else if (e.touches.length === 2) {
+      // 2 Jari -> Zoom (Pinch)
+      isPanning = false;
+      initialDistance = getDistance(e.touches);
+      lastScale = scale;
+    }
+  });
+
+  el.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+
+    if (e.touches.length === 1 && isPanning && scale > 1) {
+      // Pergeseran posisi saat sedang di-zoom
+      pointX = e.touches[0].clientX - startX;
+      pointY = e.touches[0].clientY - startY;
+      updateTransform();
+    } else if (e.touches.length === 2) {
+      // Pinch to Zoom
+      const newDistance = getDistance(e.touches);
+      if (initialDistance > 0) {
+        scale = Math.min(Math.max(1, lastScale * (newDistance / initialDistance)), 5); // Max zoom 5x
+        if (scale === 1) {
+          pointX = 0;
+          pointY = 0;
+        }
+        updateTransform();
+      }
+    }
+  }, { passive: false });
+
+  el.addEventListener('touchend', (e) => {
+    if (e.touches.length < 2) {
+      initialDistance = 0;
+    }
+    if (e.touches.length === 0) {
+      isPanning = false;
+    }
+  });
 }
+  
