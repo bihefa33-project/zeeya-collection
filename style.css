@@ -78,7 +78,7 @@ header {
 /* --- GRID MEDIA (Perbaikan Tampilan Foto & Video) --- */
 .media-grid {
   display: grid;
-  /* Membuat grid otomatis responsif: di HP 4 kolom, di PC menyesuaikan */
+  /* Membuat grid otomatis responsif: di HP 2 kolom, di PC menyesuaikan */
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 12px;
   width: 100%;
@@ -214,7 +214,7 @@ header {
 /* Penyesuaian khusus layar HP kecil */
 @media (max-width: 480px) {
   .media-grid {
-    grid-template-columns: repeat(2, 1fr); /* Pastikan pas 4 kolom di HP */
+    grid-template-columns: repeat(2, 1fr); /* Pastikan pas 2 kolom di HP */
     gap: 8px;
   }
   
