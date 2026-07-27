@@ -143,7 +143,7 @@ header h1 {
   }
 }
 
-/* --- LIGHTBOX PREVIEW MODAL (FIXED CONTROLS) --- */
+/* --- LIGHTBOX PREVIEW MODAL --- */
 .lightbox {
   display: none;
   position: fixed;
@@ -156,44 +156,45 @@ header h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* Mencegah scrollbar muncul saat zoom */
+  overflow: hidden;
+  touch-action: none; /* Mencegah scroll halaman saat zoom dengan jari */
 }
 
 .lightbox-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 
 #lightbox-media-wrapper {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 80vh;
-  overflow: auto; /* Memungkinkan gambar yang di-zoom di-scroll */
+  overflow: hidden;
 }
 
 #lightbox-media-wrapper img,
 #lightbox-media-wrapper video {
-  max-width: 90%;
-  max-height: 75vh;
+  max-width: 100%;
+  max-height: 90vh;
   object-fit: contain;
-  transition: transform 0.2s ease;
   transform-origin: center center;
+  will-change: transform;
+  touch-action: none;
 }
 
-/* Tombol Close (X) Tetap Diam Di Kanan Atas */
+/* Tombol Close (X) */
 .close-btn {
   position: fixed;
   top: 15px;
   right: 20px;
   color: #fff;
-  font-size: 35px;
+  font-size: 30px;
   font-weight: bold;
   cursor: pointer;
   z-index: 10001;
@@ -206,39 +207,23 @@ header h1 {
   justify-content: center;
 }
 
-/* Tombol Navigasi Zoom & Download Melayang di Bawah (Fixed Positon) */
+/* Tombol Download Melayang di Bawah */
 .lightbox-controls {
   position: fixed;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: center;
-  z-index: 10001; /* Memastikan selalu di atas foto */
-  background: rgba(0, 0, 0, 0.7);
-  padding: 8px 12px;
-  border-radius: 25px;
-  backdrop-filter: blur(4px); /* Efek kaca melayang */
+  z-index: 10001;
 }
 
-.lightbox-controls button, 
-.lightbox-controls a {
-  background: #333333;
-  color: #ffffff;
-  border: 1px solid #555555;
-  padding: 8px 14px;
-  border-radius: 18px;
-  font-size: 0.8rem;
-  font-weight: bold;
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-}
-
-.lightbox-controls a.dl-btn,
 .lightbox-controls a#download-btn {
   background: #1a73e8;
-  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  display: inline-block;
 }
