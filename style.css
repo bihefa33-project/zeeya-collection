@@ -5,83 +5,90 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-color: #121212;
   color: #ffffff;
-  padding: 15px;
+  padding: 12px;
 }
 
 header {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
 
+header h1 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+/* --- NAVIGASI ATAS --- */
 .nav-bar {
   display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-top: 15px;
-  text-align: left;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: flex-start;
 }
 
 .back-btn {
   background-color: #00adb5;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 8px 14px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 0.85rem;
 }
 
 .back-btn:hover {
   background-color: #007b80;
 }
 
-/* --- GRID FOLDER (Tampilan Depan) --- */
+.nav-bar h2 {
+  font-size: 1.2rem;
+  color: #eee;
+  word-break: break-word;
+}
+
+/* --- GRID FOLDER --- */
 .folders-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
 .folder-card {
   background-color: #1e1e1e;
   border: 1px solid #333;
-  border-radius: 10px;
-  padding: 20px 10px;
+  border-radius: 8px;
+  padding: 15px 10px;
   text-align: center;
   cursor: pointer;
-  transition: transform 0.2s, border-color 0.2s;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-}
-
-.folder-card:hover {
-  transform: translateY(-3px);
-  border-color: #00adb5;
-  background-color: #252525;
+  gap: 6px;
 }
 
 .folder-icon {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 .folder-name {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: bold;
   color: #eee;
 }
 
-/* --- GRID MEDIA (Perbaikan Tampilan Foto & Video) --- */
+/* --- GRID MEDIA (PERBAIKAN GEPEG) --- */
 .media-grid {
-  display: grid;
-  /* Membuat grid otomatis responsif: di HP 2 kolom, di PC menyesuaikan */
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 12px;
-  width: 100%;
+  display: grid !important;
+  /* Paksa persis 2 kolom di HP */
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 10px !important;
+  width: 100% !important;
+  box-sizing: border-box;
 }
 
 .media-card {
@@ -91,48 +98,60 @@ header {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 8px;
+  padding: 6px;
   width: 100%;
+  box-sizing: border-box;
 }
 
-/* Membatasi tinggi thumbnail agar rapi dan hemat tempat */
 .media-card img, 
 .media-card video {
   width: 100%;
-  height: 200px; /* Tinggi thumbnail seragam */
-  object-fit: cover; /* Foto tetap rapi dan terpotong presisi */
-  border-radius: 6px;
+  height: 180px; /* Tinggi thumbnail konsisten */
+  object-fit: cover; /* Foto rapi & terpotong presisi */
+  border-radius: 4px;
   cursor: pointer;
   display: block;
 }
 
 .card-actions {
-  margin-top: 8px;
+  margin-top: 6px;
   width: 100%;
-  display: flex;
-  justify-content: flex-end;
 }
 
 .card-actions .btn {
   background-color: #00adb5;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 6px 0;
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
   font-size: 0.75rem;
   font-weight: bold;
-  width: 100%; /* Tombol download memenuhi lebar kartu */
+  display: block;
+  width: 100%;
   text-align: center;
 }
 
-.card-actions .btn:hover {
-  background-color: #007b80;
+/* Untuk Layar Komputer / Tablet (Otomatis jadi 3-4 kolom) */
+@media (min-width: 600px) {
+  .media-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+    gap: 15px !important;
+  }
+  
+  .media-card img, 
+  .media-card video {
+    height: 220px;
+  }
+
+  .nav-bar {
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
-/* --- LIGHTBOX MODAL (Menampilkan Ukuran & Dimensi Asli Foto saat Diklik) --- */
+/* --- LIGHTBOX MODAL --- */
 .lightbox {
   display: none;
   position: fixed;
@@ -165,14 +184,11 @@ header {
   align-items: center;
 }
 
-/* Di dalam Lightbox, dimensi foto/video dikembalikan ke rasio aslinya */
 #lightbox-media-wrapper img,
 #lightbox-media-wrapper video {
   max-width: 100%;
   max-height: 75vh;
-  object-fit: contain; /* Mempertahankan rasio/dimensi asli */
-  transition: transform 0.2s ease;
-  transform-origin: center center;
+  object-fit: contain;
 }
 
 .close-btn {
@@ -187,7 +203,7 @@ header {
 }
 
 .lightbox-controls {
-  margin-top: 12px;
+  margin-top: 10px;
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
@@ -203,23 +219,5 @@ header {
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 0.85rem;
-}
-
-.lightbox-controls button:hover,
-.lightbox-controls a:hover {
-  background: #00adb5;
-}
-
-/* Penyesuaian khusus layar HP kecil */
-@media (max-width: 480px) {
-  .media-grid {
-    grid-template-columns: repeat(2, 1fr); /* Pastikan pas 2 kolom di HP */
-    gap: 8px;
-  }
-  
-  .media-card img, 
-  .media-card video {
-    height: 160px; /* Ukuran thumbnail lebih proporsional untuk HP */
-  }
+  font-size: 0.8rem;
 }
