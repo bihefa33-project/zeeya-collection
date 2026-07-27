@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drive Galeri - zazazaza</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Material Symbols Google for icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="topbar">
+    <div class="logo-area">
+      <span class="material-symbols-outlined icon-btn">menu</span>
+      <span class="app-title">Drive Galeri</span>
+    </div>
+    <div class="search-bar">
+      <span class="material-symbols-outlined">search</span>
+      <input type="text" id="searchInput" placeholder="Telusuri di Drive...">
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- Breadcrumb / Header Navigasi -->
+    <div class="nav-header">
+      <button id="backBtn" class="back-btn hidden">
+        <span class="material-symbols-outlined">arrow_back</span> Kembali
+      </button>
+      <h2 id="currentTitle">Drive Saya</h2>
+    </div>
+
+    <!-- Grid Folder / File -->
+    <div id="contentGrid" class="grid-container">
+      <div class="loading">Memuat file...</div>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal untuk Preview Image & Video (Zoom + Download) -->
+  <div id="mediaModal" class="modal hidden">
+    <span class="close-btn" id="closeModal">&times;</span>
+    <div class="modal-controls">
+      <a id="downloadBtn" href="#" download class="btn-download">
+        <span class="material-symbols-outlined">download</span> Unduh
+      </a>
+    </div>
+    <div class="modal-content-wrapper" id="modalWrapper">
+      <!-- Media (img/video) injected by JS -->
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
