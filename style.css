@@ -1,0 +1,199 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.back-btn {
+  background-color: #00adb5;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.back-btn:hover {
+  background-color: #007b80;
+}
+
+/* Grid Folder (Tampilan Depan) */
+.folders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.folder-card {
+  background-color: #1e1e1e;
+  border: 2px solid #333;
+  border-radius: 12px;
+  padding: 25px 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.folder-card:hover {
+  transform: translateY(-5px);
+  border-color: #00adb5;
+  background-color: #252525;
+}
+
+.folder-icon {
+  font-size: 3rem;
+}
+
+.folder-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #eee;
+}
+
+/* Grid Media (Saat Folder Dibuang/Diklik) */
+.media-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.media-card {
+  background: #1e1e1e;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  max-width: 100%;
+}
+
+.media-card img, 
+.media-card video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.card-actions {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card-actions .btn {
+  background-color: #00adb5;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.card-actions .btn:hover {
+  background-color: #007b80;
+}
+
+/* Lightbox Modal */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#lightbox-media-wrapper {
+  overflow: auto;
+  max-width: 100%;
+  max-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#lightbox-media-wrapper img,
+#lightbox-media-wrapper video {
+  max-width: 100%;
+  max-height: 70vh;
+  transition: transform 0.2s ease;
+  transform-origin: center center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.lightbox-controls {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.lightbox-controls button,
+.lightbox-controls a {
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.lightbox-controls button:hover,
+.lightbox-controls a:hover {
+  background: #00adb5;
+}
