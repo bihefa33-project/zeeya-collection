@@ -34,7 +34,7 @@ function renderFolders() {
     card.className = 'folder-card';
     
     card.innerHTML = `
-      <div class="folder-icon">📁</div>
+      <div class="folder-icon">🍑🍌💦</div>
       <div class="folder-name">${folder.name}</div>
     `;
 
