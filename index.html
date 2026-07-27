@@ -3,54 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Drive Galeri - zazazaza</title>
+  <title>Galeri Media - zazeza67</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Material Symbols Google for icons -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body>
 
-  <!-- Top Navbar -->
-  <header class="topbar">
-    <div class="logo-area">
-      <span class="material-symbols-outlined icon-btn">menu</span>
-      <span class="app-title">Drive Galeri</span>
-    </div>
-    <div class="search-bar">
-      <span class="material-symbols-outlined">search</span>
-      <input type="text" id="searchInput" placeholder="Telusuri di Drive...">
+  <header>
+    <h1>Galeri Media zazeza67</h1>
+    <!-- Baris Navigasi / Kembali -->
+    <div id="nav-bar" class="nav-bar" style="display: none;">
+      <button id="back-btn" class="back-btn">← Kembali ke Daftar Folder</button>
+      <h2 id="current-folder-title"></h2>
     </div>
   </header>
 
-  <main class="main-container">
-    <!-- Breadcrumb / Header Navigasi -->
-    <div class="nav-header">
-      <button id="backBtn" class="back-btn hidden">
-        <span class="material-symbols-outlined">arrow_back</span> Kembali
-      </button>
-      <h2 id="currentTitle">Drive Saya</h2>
-    </div>
+  <main>
+    <!-- Tampilan Utama: Grid Folder -->
+    <div id="folders-grid" class="folders-grid"></div>
 
-    <!-- Grid Folder / File -->
-    <div id="contentGrid" class="grid-container">
-      <div class="loading">Memuat file...</div>
-    </div>
+    <!-- Tampilan Detail: Grid Media dalam Folder -->
+    <div id="media-grid" class="media-grid" style="display: none;"></div>
   </main>
 
-  <!-- Lightbox Modal untuk Preview Image & Video (Zoom + Download) -->
-  <div id="mediaModal" class="modal hidden">
-    <span class="close-btn" id="closeModal">&times;</span>
-    <div class="modal-controls">
-      <a id="downloadBtn" href="#" download class="btn-download">
-        <span class="material-symbols-outlined">download</span> Unduh
-      </a>
-    </div>
-    <div class="modal-content-wrapper" id="modalWrapper">
-      <!-- Media (img/video) injected by JS -->
+  <!-- Modal Lightbox untuk Zoom & View -->
+  <div id="lightbox" class="lightbox">
+    <span class="close-btn" onclick="closeLightbox()">&times;</span>
+    <div class="lightbox-content">
+      <div id="lightbox-media-wrapper"></div>
+      <div class="lightbox-controls">
+        <button id="zoom-in-btn">+ Zoom In</button>
+        <button id="zoom-out-btn">- Zoom Out</button>
+        <button id="reset-zoom-btn">Reset Zoom</button>
+        <a id="download-btn" href="" download target="_blank" class="dl-btn">Download File</a>
+      </div>
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
-
